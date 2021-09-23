@@ -35,6 +35,7 @@ The program takes a user input to scrape the Lego website for sets and availabil
 2) Re-write the messages for better discription and more of a personal experience. 
 3) Clean-up code. There are a lot of excess spaces and unused code commented out. 
 4) Add project requirements into the `readme.md` file and what code accomplished those requirements. 
+5) Make more commits!
 
 
 
