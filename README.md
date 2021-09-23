@@ -30,10 +30,11 @@ The program takes a user input to scrape the Lego website for sets and availabil
 
 
 
-**Plans before final submital:**
+**Plans before final submittal:**
 1) Make sure there is an error message presented to user if user input returns a None value (currently it crashes).
 2) Re-write the messages for better discription and more of a personal experience. 
 3) Clean-up code. There are a lot of excess spaces and unused code commented out. 
+4) Add project requirements into the `readme.md` file and what code accomplished those requirements. 
 
 
 
