@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 #sys.stdout = open("test.txt", "w")
 
+#this version has different/extra loops for scrapping price
+
 
 with open('lego_list.txt', 'w') as f:
 

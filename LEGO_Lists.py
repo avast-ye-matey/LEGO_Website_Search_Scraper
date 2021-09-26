@@ -58,14 +58,69 @@ def parse_this_page(url_cont):
 parse_this_page(url_cont)
 
 #print(product_grid[0].prettify())
+#html =product_grid[0].prettify()***************
 
-html =product_grid[0].prettify()
+#[x.prettify() for x in product_grid]
 
-soup = BeautifulSoup(html, 'html.parser')
+#print(product_grid)
 
-title = soup.find("span", class_='Markup__StyledMarkup-ar1l9g-0 hlipzx')
-no_space = title.text
-print(no_space.lstrip())
+title_tag = []
+def title():
+    index = 0
+    for html in product_grid:
+        #index = 0
+        html = product_grid[index].prettify()
+
+        soup = BeautifulSoup(html, 'html.parser')
+
+        title = soup.find("span", class_='Markup__StyledMarkup-ar1l9g-0 hlipzx')
+        no_space_pre = title.text.removeprefix('\n       ')
+        no_space_suff = no_space_pre.removesuffix('\n      ')
+        #no_space2 = title.removesuffix('')
+        #print(title.strip())
+        index += 1
+        print(index)
+        title_tag.append(no_space_suff)   #.strip())
+
+title()
+
+price_tag = []
+def price():
+    index = 0
+    for html in product_grid:
+        #index = 0
+        html = product_grid[index].prettify()
+
+        soup = BeautifulSoup(html, 'html.parser')
+
+        title = soup.find("div", class_='ProductLeafSharedstyles__PriceRow-sc-1epu2xb-10 fEzYBd')
+        no_space_pre = title.text.removeprefix('\n\n\n\n        Price\n       \n       ')
+        no_space_suff = no_space_pre.removesuffix('\n      \n\n')
+        #i = title.text
+        
+        #print(no_space.lstrip())
+        index += 1
+        print(index)
+        #numbers = '1', '2', '3', '4', '5', '6','7','8','9','0'
+        #if no_space_suff.find('1', '2', '3', '4', '5', '6','7','8','9','0') != str:
+        if no_space_suff == '\n':
+            no_space_suff = 'N/A'
+            price_tag.append(no_space_suff)
+        else:
+            price_tag.append(no_space_suff)
+
+price()
+
+print(title_tag)
+print(price_tag)
+
+print ('Zip:')
+for x, y in map(None, title_tag, price_tag):
+    print (x, y)
+
+#print(index)
+
+
 #title = soup.find("a")
 #print(title.string)
 
