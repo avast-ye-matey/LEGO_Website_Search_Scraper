@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import xlsxwriter
 
 
 print('What would you like to search?')
@@ -111,12 +112,58 @@ def price():
 
 price()
 
+
+
+
+date_tag = []
+def date():
+    index = 0
+    for html in product_grid:
+        #index = 0
+        html = product_grid[index].prettify()
+
+        soup = BeautifulSoup(html, 'html.parser')
+
+        title = soup.find("span", class_='Text__BaseText-sc-178efqu-0 ListingProductstyles__ActionText-sc-1p6pmbg-1 dEjyWi')
+        date_title = title.text
+        #no_space_pre = title.text.removeprefix('\n       ')
+        #no_space_suff = no_space_pre.removesuffix('\n      ')
+        #no_space2 = title.removesuffix('')
+        #print(title.strip())
+        index += 1
+        print(index)
+        date_tag.append(date_title)   #.strip())
+
+date()
+
+
+
+# page = requests.get(url_cont)
+# soup = BeautifulSoup(page.content, "html.parser")
+# results_div = soup.find("ul", class_="ProductGridstyles__Grid-lc2zkx-0 gxucff") #item main group
+# results = results_div.find_all("li", class_="ProductGridstyles__Item-lc2zkx-1 dDUIzA")
+# html = results_div.prettify()
+# print(html)
+
+
+
+
 print(title_tag)
 print(price_tag)
 
-print ('Zip:')
-for x, y in map(None, title_tag, price_tag):
-    print (x, y)
+
+# final_results = zip( price_tag , title_tag )
+# print(final_results)
+
+# print ('Zip:')
+# for x, y in map(None, title_tag, price_tag):
+#     print (x, y)
+
+
+# def final_list(n):
+#     return n + n
+
+# result_final = map(final_list , )
 
 #print(index)
 
@@ -128,3 +175,37 @@ for x, y in map(None, title_tag, price_tag):
 #parse_each_item()
 #print(product_grid)
 #print(len(product_grid))
+
+
+workbook = xlsxwriter.Workbook('test.xlsx')
+worksheet = workbook.add_worksheet()
+
+#cell_format = workbook.add_format()
+#cell_format.set_font_size(15)
+cell_format = workbook.add_format({'bold': True})
+#cell_format = workbook.add_format({'font_size': 15})
+#bold.set_font_size(15)
+#cell_format.set_bold
+worksheet.write('A1' , 'LEGO Set Name', cell_format)
+worksheet.write('B1' , 'Price', cell_format)
+
+
+
+
+
+row = 1
+column = 0
+for item in title_tag:
+    
+    worksheet.write(row, column, item)
+    row += 1
+
+
+row = 1
+column = 1
+for item in price_tag:
+    
+    worksheet.write(row, column, item)
+    row += 1
+
+workbook.close()
