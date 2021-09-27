@@ -1,6 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 import xlsxwriter
+from datetime import date
+
+
+
+
+today = date.today()
+today_date_title = today.strftime("%B %d, %Y")
+print(today_date_title)
+
 
 
 print('What would you like to search?')
@@ -114,9 +123,9 @@ price()
 
 
 
-
+oct = []
 date_tag = []
-def date():
+def date_function():
     index = 0
     for html in product_grid:
         #index = 0
@@ -124,17 +133,47 @@ def date():
 
         soup = BeautifulSoup(html, 'html.parser')
 
-        title = soup.find("span", class_='Text__BaseText-sc-178efqu-0 ListingProductstyles__ActionText-sc-1p6pmbg-1 dEjyWi')
-        date_title = title.text
+        title = soup.find("a")
+        date_title = title['href']
         #no_space_pre = title.text.removeprefix('\n       ')
         #no_space_suff = no_space_pre.removesuffix('\n      ')
         #no_space2 = title.removesuffix('')
         #print(title.strip())
-        index += 1
-        print(index)
-        date_tag.append(date_title)   #.strip())
+        url_lego = 'https://www.lego.com'
+        page = requests.get(url_lego + date_title)
 
-date()
+        soup = BeautifulSoup(page.content, "html.parser")
+        #print(page.text)
+
+        results_div2 = soup.find("div", class_="ProductOverviewstyles__Container-sc-1a1az6h-2 cIoioK")
+        results2 = results_div2.find_all("span", class_="Markup__StyledMarkup-ar1l9g-0 hlipzx")[1]
+
+        for title2 in results2:
+            #print(title.prettify(), end="\n")
+            #print(title, end="\n"*2)
+            print(title2.text, end="\n"*2)
+            #print(title2.text, end="\n"*2, file=f)
+            #sys.stdout.write(title2.text, end="\n"*2)
+            #f.write(title2.text + '\n')
+            oct_release = 'Coming Soon on October 1, 2021'
+            if title2.text == oct_release:
+                oct.append(title2.text)
+                date_tag.append(title2.text)
+            else:
+                date_tag.append(title2.text)
+
+                #pass
+        index += 1
+        #print(index)
+        date_tag.append(title.text)   #.strip())
+
+date_function()
+for duplicate in date_tag:
+    if '\n' in duplicate:    
+        date_tag.remove(duplicate)
+    else:
+        pass
+
 
 
 
@@ -150,6 +189,7 @@ date()
 
 print(title_tag)
 print(price_tag)
+print(date_tag)
 
 
 # final_results = zip( price_tag , title_tag )
@@ -177,8 +217,8 @@ print(price_tag)
 #print(len(product_grid))
 
 
-workbook = xlsxwriter.Workbook('test.xlsx')
-worksheet = workbook.add_worksheet()
+workbook = xlsxwriter.Workbook('LEGO search results ' + today_date_title + '.xlsx')
+worksheet = workbook.add_worksheet(today_date_title)
 
 #cell_format = workbook.add_format()
 #cell_format.set_font_size(15)
@@ -188,6 +228,7 @@ cell_format = workbook.add_format({'bold': True})
 #cell_format.set_bold
 worksheet.write('A1' , 'LEGO Set Name', cell_format)
 worksheet.write('B1' , 'Price', cell_format)
+worksheet.write('C1' , 'Availability', cell_format)
 
 
 
@@ -204,6 +245,13 @@ for item in title_tag:
 row = 1
 column = 1
 for item in price_tag:
+    
+    worksheet.write(row, column, item)
+    row += 1
+
+row = 1
+column = 2
+for item in date_tag:
     
     worksheet.write(row, column, item)
     row += 1
