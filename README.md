@@ -25,7 +25,7 @@ This program was originally meant to find what sets came out October 1st because
 
 2) Run-
 
-`LEGO_Project.py`
+`LEGO_Project_Run_Me.py`
 
 3) Program will ask what do you want to search. Input anything you want to search on lego.com (santa, harry potter, and star wars are known working searches)
 
@@ -38,11 +38,11 @@ This program was originally meant to find what sets came out October 1st because
 
 
 **Plans before final submittal:**
-1) Make sure there is an error message presented to user if user input returns a None value (currently it crashes).
-2) Re-write the messages for better discription and more of a personal experience. 
-3) Clean-up code. There are a lot of excess spaces and unused code commented out. 
-4) Add project requirements into the `readme.md` file and what code accomplished those requirements. 
-5) Make more commits!
+1) Re-write the messages for better discription and more of a personal experience. 
+2) Clean-up code. There are a lot of excess spaces and unused code commented out. 
+3) Add project requirements into the `readme.md` file and what code accomplished those requirements. 
+4) Make more commits!
+- [x] Make sure there is an error message presented to user if user input returns a None value (currently it crashes).
 
 
 
