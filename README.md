@@ -25,7 +25,7 @@ This program was originally meant to find what sets came out October 1st because
 
 2) Run-
 
-`LEGO_Project.py`
+`LEGO_Project_Run_Me.py`
 
 3) Program will ask what do you want to search. Input anything you want to search on lego.com (santa, harry potter, and star wars are known working searches)
 
