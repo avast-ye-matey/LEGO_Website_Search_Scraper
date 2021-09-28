@@ -11,7 +11,7 @@ today = date.today()
 today_date_title = today.strftime("%B %d, %Y")
 print(today_date_title)
 
-print('What would you like to search?')
+print('What LEGO set/theme would you like to search?')
 
 user_input = input()
 
@@ -51,11 +51,10 @@ def find_next_page():
         find_next_page()
     else:
         pass
-        #print("All done searching! No items left\n")        
+        #print("All done searching! No items left\n")     
+            
 
 find_next_page()
-
-
 
 
 def parse_this_page():
@@ -65,13 +64,15 @@ def parse_this_page():
         soup = BeautifulSoup(page.content, "html.parser")
         
         results_div = soup.find("ul", class_="ProductGridstyles__Grid-lc2zkx-0 gxucff") 
-        results = results_div.find_all("li", class_="ProductGridstyles__Item-lc2zkx-1 dDUIzA") 
-       
-        for li_results in results:            
-            product_grid.append(li_results)   
+        if results_div != None:
+            results = results_div.find_all("li", class_="ProductGridstyles__Item-lc2zkx-1 dDUIzA") 
+            for li_results in results:            
+                product_grid.append(li_results)              
+        else:  
+            print('No results found. Please try another search.') 
+            exit()                              
 
-        #if results != None  ****************8             
-        
+                         
 #parse_this_page(url_cont)
 
 title_tag = []
@@ -118,7 +119,8 @@ def price():
 # 'oct[]' May be used for future use. I decided to keep in for now but it was to 
 # add all the sets releasing Oct 1 to a special list to call upon after 
 # program ran. The initial idea for this project was to collect upcoming sets for
-# Oct 1 under a specific search query. I left the if else satement in the code too.
+# Oct 1 under a specific search query. I left the if else satement in the code too
+# in case I want to activate this feature on a later date. 
 oct = []
 
 date_tag = []
@@ -148,12 +150,9 @@ def date_function():
         #         date_tag.append(title2.text)                
         index += 1        
         date_tag.append(results2.text)  
+        
 
-#date_function()
-
-
-
-    
+#date_function()  
 
 
 print(title_tag)
@@ -161,12 +160,7 @@ print(price_tag)
 print(date_tag)
 
 
-
-
-
-
-for this_page in url_cont_list:
-    
+for this_page in url_cont_list:    
     url_cont = this_page
     print('howdy!!!' + url_cont)
     print('howdy!!!' + this_page)
@@ -196,12 +190,6 @@ print(price_tag)
 print(date_tag)
 
 print(url_cont_list)
-
-
-
-
-
-
 
 
 # creation of xlsx file
