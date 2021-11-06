@@ -237,8 +237,9 @@ def date_function():
         ###         date_tag.append(title2.text)
         ###     else:
         ###        date_tag.append(title2.text)                
-        index += 1        
-        date_tag.append(results2.text)  
+        index += 1     
+        #return results2.text    ##########
+        date_tag.append(results2.text)  ###################
         
 
 ### date_function()  
@@ -256,7 +257,7 @@ for this_page in url_cont_list:
     parse_this_page()    
     title()
     price()
-    date_function()
+    date_function() ########
     print(product_grid[0])
     product_grid = []
     print(product_grid)
