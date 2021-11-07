@@ -1,3 +1,7 @@
+# Lego.com Item Search Scraper
+<br /><br /><br />
+
+
 # Table of Contents ![image](https://user-images.githubusercontent.com/84582506/140656970-7cee8afc-a9c3-4d76-a09f-29e2388a9f6f.png) 
 
 [About](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#about)<br />
@@ -24,19 +28,19 @@ This program was originally meant to find what sets came out October 1st because
 <a name="visualwalkthrough"></a>
 ### Visual walkthrough ![image](https://user-images.githubusercontent.com/84582506/140657181-3320da35-8716-4757-84a2-f4d2af777480.png)<br />
 1) Close-up of my terminal in Visual Studio. <br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_User_Input.jpg" alt="User Input"
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/tree/main/jpegs_for_readme/Results_Preview_User_Input.jpg" alt="User Input"
      	title="User Input" /><br />
 First line is the programs initial prompt. <br />
 Second line is the user input. <br />
 Third line is the URL that was created using the user input and the starting point for the scraper.<br />
 2) Close-up of the terminal showing the terminal output. This isn't the final format. But it's something to watch to make sure it's working.<br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Terminal.jpg" alt="Terminal Output"
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/tree/main/jpegs_for_readme/Results_Preview_Terminal.jpg" alt="Terminal Output"
      	title="Terminal Output" /><br />
 4) Full screen screenshot of Visual Studio with `.xlsx` file being previewed. <br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview.jpg" alt="Results"
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/tree/main/jpegs_for_readme/Results_Preview.jpg" alt="Results"
 	title="Results"  /><br /><br />
 3) Zoomed in results. This is what to rely on instead of terminal output. 
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Closer.jpg" alt="Results Zoomed"
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/tree/main/jpegs_for_readme/Results_Preview_Closer.jpg" alt="Results Zoomed"
 	title="Results Zoomed"  /><br /><br />
 	
 	
