@@ -1,28 +1,52 @@
-# LEGO_Website_Search_Scrapper
+# LEGO Website Search Scraper
 
-In the code, after the import statements, is a guide to understanding how I format my comments so the Mentors can easily look over the code for the requirements.<br />
-
-This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal.<br />
-
-I leave myself a lot of notes and use the print function after almost every line to help me debug. So there will be a lot of random messy output to the terminal, which is normal. I decided to leave them functional so I can constantly be adding to the program whilst debugging.<br /><br />
-
-
-**What does this program do?:**<br />
-This program takes a user input to scrape the LEGO website for sets, price, and availability using the user input. So lets say you want to see what LEGO Harry Potter sets  exist, if they're available (buy now, comming soon, retired, or back ordered), and how much they cost, well just type Harry Potter as your search input when asked. Once the program is done, the results are exported into an `.xlsx` (Excel) document and labeled with today's date. The functionality of the program is based on if you actually were searching the LEGO website. The program scrapes the search function as if you went directly to their site and used the search function. Also the program relies on the Excel file for results and not the terminal (beyond the initial user input). <br /><br />
-
-Here is a visual view of the results using input `santa` and being viewed with extension *Excel Viewer* by GrapeCity inside Visual Studio. (Instructions on downloading/using extension are on step 6 from "Steps to Run Program." Scroll down to see this section)
+## About:
+This program was originally meant to find what sets came out October 1st because weirdly a release calendar doesn't exist on their site. My focus needed to be on the functionality so I moved this purpose for a later feature. The results already return a lot of useful info already. I wanted to build a solid foundation because I was already having to build a powerful program for something that could be labeled a feature. Some code I already wrote is commented out for when I add the feature back. I also want to add a more functional search option for release timeframes beyond the static Oct. 1st. This program in its current state is meant to utilize the Excel file and not the terminal (beyond the initial user input). I use the terminal as a testing tool so it varies wildly from end results. <br /><br />
+## What does this program do?:
+### Visual walkthrough-<br />
+1) Close-up of my terminal in Visual Studio. <br />
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_User_Input.jpg" alt="User Input"
+     	title="User Input" /><br />
+First line is the programs initial prompt. <br />
+Second line is the user input. <br />
+Third line is the URL that was created using the user input and the starting point for the scraper.<br />
+2) Close-up of the terminal showing the terminal output. This isn't the final format. But it's something to watch to make sure it's working.<br />
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Terminal.jpg" alt="Terminal Output"
+     	title="Terminal Output" /><br />
+4) Full screen screenshot of Visual Studio with `.xlsx` file being previewed. <br />
 <img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview.jpg" alt="Results"
 	title="Results"  /><br /><br />
-Zoomed in results. This is what to rely on instead of terminal output. 
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Closer.jpg" alt="Results"
-	title="Results"  />
-      
-      
-      
-**About:**<br />
-This program was originally meant to find what sets came out October 1st because weirdly a release calendar doesn't exist on their site. My focus needed to be on the functionality so I moved this purpose for a later feature. The results already return a lot of useful info already. I wanted to build a solid foundation because I was already having to build a powerful program for something that could be labeled a feature. Some code I already wrote is commented out for when I add the feature back. I also want to add a more functional search option for release timeframes beyond the static Oct. 1st. This program in its current state is meant to utilize the Excel file and not the terminal (beyond the initial user input). I use the terminal as a testing tool so it varies wildly from end results. <br /><br />
+3) Zoomed in results. This is what to rely on instead of terminal output. 
+<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Closer.jpg" alt="Results Zoomed"
+	title="Results Zoomed"  /><br /><br />
+### Text walkthrough-<br />
+This program takes a user input to scrape the LEGO website for sets, price, and availability using the user input. So lets say you want to see what LEGO Harry Potter sets  exist, if they're available (buy now, comming soon, retired, or back ordered), and how much they cost, well just type Harry Potter as your search input when asked. Once the program is done, the results are exported into an `.xlsx` (Excel) document and labeled with today's date and what search input was used. The functionality of the program is based on if you actually were searching the LEGO website. The program scrapes the search function as if you went directly to the Lego website and used the search function. Also the program relies on the Excel file for results and not the terminal (beyond the initial user input). <br /><br />
 
-**Steps to run program:**
+### Tested versions:
+Python
+version: 3.9.6
+
+requests
+Version: 2.26.0
+
+XlsxWriter
+Version: 3.0.1
+
+beautifulsoup4
+Version: 4.10.0
+
+Only tested on Windows.<br /><br />
+
+### Important note:
+
+
+This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal. I have cleaned up a lot of random terminal output I use for testing so the user can watch the results live but some random print functions may show.<br />
+
+I leave myself a lot of notes and use the print function after almost every line to help me debug. I deleted most comments but some may still be in the code. Also most of the testing print functions are commented out, but still some testing output may find its way on the terminal. <br /><br />
+
+
+
+## Steps to run program:
 1) You will first need to install 3 packages-
 
 `pip install requests`
