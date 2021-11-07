@@ -2,297 +2,194 @@ import requests
 from bs4 import BeautifulSoup
 import xlsxwriter
 from datetime import date
+import re
 
 
-# comment beginning with "#" is for Mentor eyes to check features for the project requirements.
-# comment beginning with "###" is for me. Mentor's can read it, but it's either a note to self
-# or a feature that I'm currently working on. 
-# comment beginning with "***" is current feature list.
-# comment beginning with "//" is copy and pasted definition of feature to use as reference. Taken from Python Google Doc. 
+class Item:               
+
+    def title(self): 
+        titles = Pages.title_parse(self)                                     
+        title_list = []
+        if titles != None:
+            for data in titles: 
+                i = data.get_text()            
+                print(i)
+                if i == '':
+                    i = 'N/A'
+                    title_list.append(i)
+                else:
+                    title_list.append(i)
+            return title_list
+        else:
+            return None
+        
+
+    def price(self):              
+        prices = Pages.price_parse(self)                          
+        price_list = []
+        for data in prices: 
+            i = data.get_text()
+            x = i.removeprefix('Price')
+            print(i)
+            if x == '':
+                x = 'N/A'
+                price_list.append(x)
+            else:
+                price_list.append(x)
+        return price_list
 
 
-# ***feature list item 4 from readme.***
-# //  Implement a “scraper” that can be fed a type of file or URL and pull information off of it. // 
-# //  For example, a web scraper that lets you provide any website URL and it will find certain keywords on the page. // 
-# This whole thing is a web scraper but I'll point out throughout program where it actually runs.
-
-
-### For some reason this code wouldn't work sitting before the xlsx workbook so I tried it here and it worked. 
-### So I left it. But it doesn't get used till very end of code. 
-# ***feature list item 3 from readme.***
-# // Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event). //
-# It doesn't exactly calculate but external data (todays date) is used to create the name of the Excel file. So I'm not just pulling the data
-# but I'm using the data later in the program. So I wanted to place this here for Mentor Approval. 
-today = date.today()
-today_date_title = today.strftime("%B %d, %Y")
-print(today_date_title)
-
-print('What LEGO set/theme would you like to search?')
-
-user_input = input()
-
-# ***feature list item 1 from readme. (First list)***
-# // Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program. //
-# url_cont_list = []
-# Starts as an empty list. Once a full URL is made, it appends to this list. Also when a new URL is made for each subsequent list, it is appended to this list. 
-# This list isn't as important as the other lists. This is used mainly for debugging. 
-url_cont_list = []
-
-user_input_without_spaces = user_input.replace(' ','%20')
-url_lego = 'https://www.lego.com'
-url = "https://www.lego.com/en-us/search?q="+ user_input_without_spaces
-url_cont = "https://www.lego.com/en-us/search?q="+ user_input_without_spaces
-url_cont_list.append(url_cont)
-
-# ***feature list item 1 from readme. (Second list)***
-# // Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program. // 
-# product_grid = [] 
-# This list is is used to store the HTML <div> element of each separate Lego item. 
-# It was an easy way to parse the HTML since the items didn't have id's and only classes. 
-product_grid = []
-
-
-# ***feature list item 2 from readme. (First function)***
-# // Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. 
-# // To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, 
-# // return a value to where it was called, and use that value somewhere else in your code. // 
-# def find_next_page():
-# Function finds next next page URL. It has to build the URL because the user input MUST be included in the URL because just finding the HREF doesn't load the proper page. 
-# So not only does it update and store a value in global "link_href_a" but that value is used to update and store global "url_cont" so the program knows where to go next. 
-# The new value stored in global "url_cont" gets used in other functions.
-link_href_a = ''    
-def find_next_page():
-    global link_href_a
-    global url_cont
-    # ***feature list item 4 from readme. (First scrape)***
-    # scrapes page to find next page through HREF <a> links.
-    page = requests.get(url_cont)
-    soup = BeautifulSoup(page.content, "html.parser")    
-    results_a = soup.find("a", class_="Paginationstyles__NextLink-npbsev-10 gwMJmA")
-    print(results_a)    
-    if results_a != None:
-        link_href_a = results_a['href']
-        print(link_href_a) ### /en-us/search?page=2
-        link_href_a = link_href_a.removeprefix('/en-us/search?')
-        print(link_href_a) ### page=2        
-        url_cont = url + '&' + link_href_a
-        print('inside')
-        print(link_href_a) ### page=2        
-        print('inside2')
-        print(url_cont) ### https://www.lego.com/en-us/search?q=harry%20potterpage=2
-        url_cont_list.append(url_cont)
-        find_next_page()
-    else:
-        pass
-        ### print("All done searching! No items left\n")     
+    def date(self):                
+        dates = Pages.date_parse(self)
+        grid = []       
+        if dates != None:
+            results = dates.find_all("li", class_="ProductGridstyles__Item-lc2zkx-1 dDUIzA") 
+            for li_results in results:            
+                grid.append(li_results)                 
+        date_tag = []
+        index = 0
+        for html in grid:        
+            html = grid[index].prettify()            
+            soup = BeautifulSoup(html, 'html.parser')
+            title = soup.find("a")
+            date_title = title['href']            
+            url_lego = 'https://www.lego.com'            
+            page = requests.get(url_lego + date_title)
+            soup = BeautifulSoup(page.content, "html.parser")       
+            results_div2 = soup.find("div", class_="ProductOverviewstyles__Container-sc-1a1az6h-2 cIoioK")
+            results2 = results_div2.find_all("span", class_="Markup__StyledMarkup-ar1l9g-0 hlipzx")[1]                          
+            index += 1                 
+            date_tag.append(results2.text) 
+            print(results2.text)
+        return date_tag
             
 
-find_next_page()
+class Pages:  
 
+    lego_search_url = "https://www.lego.com/en-us/search?q="   
 
+    def current_page(self):
+        current_url = self.replace(' ','%20')
+        url_full = Pages.lego_search_url + current_url
+        return url_full
 
-# ***feature list item 2 from readme. (Second function)***
-# // Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. 
-# // To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, 
-# // return a value to where it was called, and use that value somewhere else in your code. // 
-# def parse_this_page():
-# Function parses current HTML page. It uses global variable "url_cont" to know which page to parse. It finds each separate Lego item and 
-# puts content into a list "product_grid = []" 
-def parse_this_page():
-        ### global results
-        global product_grid
-        # ***feature list item 4 from readme.(Second scrape)***
-        # scrapes page to find each Lego item's <ul> and <li> element to create a usable list to iterate to collect title, price, and release date.
-        page = requests.get(url_cont)
-        soup = BeautifulSoup(page.content, "html.parser")
+    def find_next_page(self):        
+        link_href_a = ''        
+        page = requests.get(self)
+        soup = BeautifulSoup(page.content, "html.parser")    
+        results_a = soup.find("a", class_="Paginationstyles__NextLink-npbsev-10 gwMJmA")
+        #print(results_a)  
+        #print('howdy')
+        #print(results_a)    
+        if results_a != None:
+            link_href_a = results_a['href']
+            #print(link_href_a) ### /en-us/search?page=2
+            link_href_a = link_href_a.removeprefix('/en-us/search?')
+            #print(link_href_a) ### page=2      
+            return link_href_a              
+        else:
+            x = 'none'
+            return x            
         
-        results_div = soup.find("ul", class_="ProductGridstyles__Grid-lc2zkx-0 gxucff") 
-        if results_div != None:
-            results = results_div.find_all("li", class_="ProductGridstyles__Item-lc2zkx-1 dDUIzA") 
-            for li_results in results:            
-                product_grid.append(li_results)              
-        else:  
-            print('No results found. Please try another search.') 
-            exit()                              
+    def parse_page(self):
+        if (Item.title(self)) != None:
+            title_tag.append(Item.title(self))
+            price_tag.append(Item.price(self))
+            date_tag.append(Item.date(self)) 
+            return True
+              
+        else:
+            print('buttsholes')
+            return None
 
-                         
-### parse_this_page(url_cont)
+    def title_parse(self):
+        page = requests.get(self)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        title_item_div = soup.find("div", class_="SearchPagestyles__MainContainer-sc-1d2gqze-5 jFRDvz")
+        if title_item_div != None:
+            titles = title_item_div.find_all("span", class_="Markup__StyledMarkup-ar1l9g-0 hlipzx")
+            return titles
+        else:
+            return None
+
+    def price_parse(self):
+        page = requests.get(self)
+        soup = BeautifulSoup(page.content, 'html.parser')    
+        prices = soup.find_all("div", class_='ProductLeafSharedstyles__PriceRow-sc-1epu2xb-10 fEzYBd')  
+        return prices 
+    
+    def date_parse(self):
+        page = requests.get(self)
+        soup = BeautifulSoup(page.content, "html.parser")        
+        dates = soup.find("ul", class_="ProductGridstyles__Grid-lc2zkx-0 gxucff") 
+        return dates
 
 
-# ***feature list item 1 from readme. (Third list)***
-# // Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program. //
-# title_tag = []
-# Starts as an empty list. This list is used to store the title of each Lego item from the parsed HTML. 
+def intro():
+    print('What LEGO set/theme would you like to search?')
+    user_input = input()
+    url_full = Pages.current_page(user_input)
+    print(url_full)
+    return url_full
+    
+def intro_loop():
+    print("No results found. Let's try another search")
+    url_full = intro()
+    return url_full
+
+
+product_grid = []
 title_tag = []
-
-# ***feature list item 2 from readme. (Third function)***
-# // Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code.
-# // To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure,
-# // return a value to where it was called, and use that value somewhere else in your code. // 
-# def title():
-# Function iterates the "product_grid = []" list to find each title of the Lego items then appends it to "title_tag = []" list.
-def title():
-    index = 0
-    for html in product_grid:        
-        html = product_grid[index].prettify()
-        # ***feature list item 4 from readme.(Third scrape)***
-        # scapes each item in list "product_grid = []" to find the items title. 
-        soup = BeautifulSoup(html, 'html.parser')
-
-        title = soup.find("span", class_='Markup__StyledMarkup-ar1l9g-0 hlipzx')
-        no_space_pre = title.text.removeprefix('\n       ')
-        no_space_suff = no_space_pre.removesuffix('\n      ')
-        title_tag.append(no_space_suff) 
-        if len(product_grid) != 1:
-            index += 1
-            print(index)
-        else:
-            pass
-        
-
-### title()
-
-
-# ***feature list item 1 from readme. (Fourth list)***
-# // Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program. //
-# price_tag = []
-# Starts as an empty list. This list is used to store the price of each Lego item from the parsed HTML. 
 price_tag = []
-
-# ***feature list item 2 from readme. (Fourth function)***
-# // Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. 
-# // To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, 
-# // return a value to where it was called, and use that value somewhere else in your code. // 
-# def price():
-# Function iterates the "product_grid = []" list to find each price of the Lego items then appends it to "price_tag = []" list.
-def price():
-    index = 0
-    for html in product_grid:        
-        html = product_grid[index].prettify()
-        # ***feature list item 4 from readme.(Fourth scrape)***
-        # scapes each item in list "product_grid = []" to find the items price. 
-        soup = BeautifulSoup(html, 'html.parser')
-
-        title = soup.find("div", class_='ProductLeafSharedstyles__PriceRow-sc-1epu2xb-10 fEzYBd')
-        no_space_pre = title.text.removeprefix('\n\n\n\n        Price\n       \n       ')
-        no_space_suff = no_space_pre.removesuffix('\n      \n\n')
-
-        index += 1
-        print(index)       
-        if no_space_suff == '\n':
-            no_space_suff = 'N/A'
-            price_tag.append(no_space_suff)
-        else:
-            price_tag.append(no_space_suff)
-
-### price()
-
-### 'oct[]' May be used for future use. I decided to keep in for now but it was to 
-### add all the sets releasing Oct 1 to a special list to call upon after 
-### program ran. The initial idea for this project was to collect upcoming sets for
-### Oct 1 under a specific search query. I left the if else satement in the code too
-### in case I want to activate this feature on a later date. 
-oct = []
-
-
-
-# ***feature list item 1 from readme. (Fifth list)***
-# // Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program. //
-# date_tag = []
-# Starts as an empty list. This list is used to store the release date of each Lego item from the parsed HTML. 
 date_tag = []
 
-# ***feature list item 2 from readme. (Fifth function)***
-# // Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. 
-# // To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, 
-# // return a value to where it was called, and use that value somewhere else in your code. //  
-# def date_function():
-# Function iterates the "product_grid = []" list to find each release date of the Lego items then appends it to "price_tag = []" list.
-def date_function():
-    index = 0
-    for html in product_grid:        
-        html = product_grid[index].prettify()
-        # ***feature list item 4 from readme.(Fifth scrape)***
-        # scapes each item in list "product_grid = []" to find the HREF on <a> element of each item to later go into 
-        # that specific items' page to pull it's release date because it isn't displayed on the main search page.  
-        soup = BeautifulSoup(html, 'html.parser')
 
-        title = soup.find("a")
-        date_title = title['href']
-        
-        url_lego = 'https://www.lego.com'
-        # ***feature list item 4 from readme.(Sixth scrape)***
-        # scapes current item page to find <div> and <span> element to find items' release date. 
-        page = requests.get(url_lego + date_title)
-        soup = BeautifulSoup(page.content, "html.parser")        
 
-        results_div2 = soup.find("div", class_="ProductOverviewstyles__Container-sc-1a1az6h-2 cIoioK")
-        results2 = results_div2.find_all("span", class_="Markup__StyledMarkup-ar1l9g-0 hlipzx")[1]
-
-        ### for title2 in results2:            
-        ###     print(title2.text, end="\n"*2)            
-        ###     oct_release = 'Coming Soon on October 1, 2021'
-        ###    if title2.text == oct_release:
-        ###         oct.append(title2.text)
-        ###         date_tag.append(title2.text)
-        ###     else:
-        ###        date_tag.append(title2.text)                
-        index += 1     
-        #return results2.text    ##########
-        date_tag.append(results2.text)  ###################
+url_full = intro()
+while Pages.parse_page(url_full) is None:
+    #print('1')
+    url_full = intro_loop()
+    #print('3')
+#print('2')
+user_input = url_full.removeprefix('https://www.lego.com/en-us/search?q=')
+user_input = user_input.replace('%20','_')
+link_href_a = Pages.find_next_page(url_full)
+url_cont = url_full + '&' + link_href_a
+print(url_cont)
+while url_cont != (url_full + '&' + 'none'):
+    # print('wha')
+    # print(url_cont)
+    # print('whaddup')
+    Pages.parse_page(url_cont)    
+    link_href_a = Pages.find_next_page(url_cont) #######    
+    #print(price_tag)
+    #print(title_tag)
+    #print(date_tag)    
+    # print(url_cont)
+    url_cont = url_full + '&' + link_href_a
+    print(url_cont)
+    # print(url_cont)
+    # print('whaddup2')
+else:
+    #print('done')
+    pass
         
 
-### date_function()  
+# print(price_tag)
+# print(title_tag)
+# print(url_cont)
+print('Done searching!')  
+print('Now Creating XLSX results file...')
 
 
-print(title_tag)
-print(price_tag)
-print(date_tag)
+### today's date
+today = date.today()
+today_date_title = today.strftime("%B_%d_%Y")
+#print(today_date_title)
 
-
-for this_page in url_cont_list:    
-    url_cont = this_page
-    print('howdy!!!' + url_cont)
-    print('howdy!!!' + this_page)
-    parse_this_page()    
-    title()
-    price()
-    date_function() ########
-    print(product_grid[0])
-    product_grid = []
-    print(product_grid)
-    print(title_tag)
-    print(price_tag)
-    print(date_tag)
-
-
-### Extra list items were being created for the date list. Haven't looked into it yet.
-### So to match the other lists I had to delete those items. Luckily they all included '\n'
-for duplicate in date_tag:
-    if '\n' in duplicate:    
-        date_tag.remove(duplicate)
-    else:
-        pass
-
-
-print(title_tag)
-print(price_tag)
-print(date_tag)
-
-print(url_cont_list)
-
-
-
-
-# ***feature list item 5 from readme. (With Mentor Approval)***
-# // Other features can be added to this list with mentor or staff permission, 
-# but we want to see you stretch your skills, so you’ll want to pick something challenging. //
-# I would like to add this for Mentor approval. The creation of an Excel file using the results of scraping pages and 
-# building lists. It takes each list and iterates through it to place each index of the list into a separate Excel cell. 
-# Then when finished, it labels the file using the the current date. 
 
 ### creation of xlsx file
-workbook = xlsxwriter.Workbook('LEGO search results ' + today_date_title + '.xlsx')
+workbook = xlsxwriter.Workbook('LEGO.com_search_results_for_' + user_input.upper() + '_on_' + today_date_title + '.xlsx')
 worksheet = workbook.add_worksheet(today_date_title)
 
 cell_format = workbook.add_format({'bold': True})
@@ -302,23 +199,25 @@ worksheet.write('C1' , 'Availability', cell_format)
 
 row = 1
 column = 0
-for item in title_tag:
-    
-    worksheet.write(row, column, item)
-    row += 1
+for item in title_tag:    
+    for sub_items in item:  
+        worksheet.write(row, column, sub_items)        
+        row += 1
 
 row = 1
 column = 1
 for item in price_tag:
-    
-    worksheet.write(row, column, item)
-    row += 1
+    for sub_items in item:  
+        worksheet.write(row, column, sub_items)
+        row += 1
 
 row = 1
 column = 2
 for item in date_tag:
-    
-    worksheet.write(row, column, item)
-    row += 1
+    for sub_items in item:  
+        worksheet.write(row, column, sub_items)
+        row += 1
 
 workbook.close()
+
+print('File Ready!')
