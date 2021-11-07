@@ -78,7 +78,7 @@ This program takes a user input to scrape the LEGO website for sets, price, and 
 <a name="importantnote"></a>
 ## Important note ![image](https://user-images.githubusercontent.com/84582506/140657251-f1f32be7-ed50-4d91-808e-6ed5d2ffba74.png)
 <blockquote>
-This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal. I have cleaned up a lot of random terminal output I use for testing so the user can watch the results live but some random print functions may show.<br />
+This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal. I have cleaned up a lot of random terminal output I use for testing so the user can watch the results live but some random print functions may show.<br /><br />
 
 I leave myself a lot of notes and use the print function after almost every line to help me debug. I deleted most comments but some may still be in the code. Also most of the testing print functions are commented out, but still some testing output may find its way on the terminal. 
 </blockquote><br /><br /><br />
