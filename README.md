@@ -6,13 +6,13 @@
 
 [About](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#about)<br />
 [What does this program do?](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#whatdoesthisprogramdo)<br />
---[Visual walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#visualwalkthrough)<br />
---[Text walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#textwalkthrough)<br />
+-- [Visual walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#visualwalkthrough)<br />
+-- [Text walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#textwalkthrough)<br />
 [Steps to run program](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#stepstorunprgram)<br />
 [Important note](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#importantnote)<br />
 [Tested versions](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#testedversions)<br />
 [Project Requirements](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#projectrequirements)<br />
---[Feature List Items Used](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#featurelistitemsused)<br />
+-- [Feature List Items Used](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#featurelistitemsused)<br />
 [Future Features](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#futurefeatures)<br /><br /><br />
 
 
@@ -96,7 +96,14 @@ version: 3.9.6<br /><br />
 **Packages:**<br />
 requests --Version: 2.26.0<br />
 XlsxWriter --Version: 3.0.1<br />
-beautifulsoup4 --Version: 4.10.0<br /><br /><br />
+beautifulsoup4 --Version: 4.10.0<br /><br />
+
+**Tested search words:**<br/>
+santa<br/>
+harry potter<br/>
+batman<br/>
+star wars<br/>
+cigarette (for error referencing)<br /><br /><br />
 
 
 
@@ -118,12 +125,15 @@ beautifulsoup4 --Version: 4.10.0<br /><br /><br />
  
 <a name="featurelistitemsused"></a>
 ### Feature List Items Used ![image](https://user-images.githubusercontent.com/84582506/140657351-81caf107-4fac-405a-9999-41c909351143.png) <br />
-(these features are labeled in the program so you can see the code that represents these features)
-1) Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program.
-2) Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, return a value to where it was called, and use that value somewhere else in your code. For example, you could create a function that reads how many items there are in a text file, returns that value, and later uses that value to execute a loop a certain number of times.
-3) (**May Need Mentor Approval**) Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event).
-4) Implement a “scraper” that can be fed a type of file or URL and pull information off of it. For example, a web scraper that lets you provide any website URL and it will find certain keywords on the page.
-5) (**With Mentor Approval**) Other features can be added to this list with mentor or staff permission, but we want to see you stretch your skills, so you’ll want to pick something challenging.<br /><br /><br />
+1) Create a class, then create at least one object of that class and populate it with data. The value of at least one object must be used somewhere in your code.
+2) Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program.
+3) Create and call at least 3 functions or methods, at least one of which must return a value that is used somewhere else in your code. To clarify, at least one function should be called in your code, that function should calculate, retrieve, or otherwise set the value of a variable or data structure, return a value to where it was called, and use that value somewhere else in your code. For example, you could create a function that reads how many items there are in a text file, returns that value, and later uses that value to execute a loop a certain number of times.
+4) (**May Need Mentor Approval**) Calculate and display data based on an external factor (ex: get the current date, and display how many days remaining until some event).<br/>
+	- *I pull the current date to add to final `xlsx` file name but don't use it to calculate anything.*
+5) (**With Mentor Approval**) Other features can be added to this list with mentor or staff permission, but we want to see you stretch your skills, so you’ll want to pick something challenging.
+	- *I export the result lists into a `xlsx` file*
+### “Stretch” List Items Used ![image](https://user-images.githubusercontent.com/84582506/141661260-a6eee33c-9a68-4952-af19-e1b47b545257.png) <br />
+6) Implement a “scraper” that can be fed a type of file or URL and pull information off of it. For example, a web scraper that lets you provide any website URL and it will find certain keywords on the page.<br /><br /><br />
 
 <a name="futurefeatures"></a>
 ## Future Features ![image](https://user-images.githubusercontent.com/84582506/140657094-e7b2338a-cf4d-4424-ac24-778a39a90cc6.png)
