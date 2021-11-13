@@ -5,6 +5,13 @@ from datetime import date
 import re
 
 
+#########################################
+### Classes and independent Functions ###
+#########################################
+
+# Class Item holds the methods for finding the different values (title, price, and date) for each lego item on current web page.
+# Each method returns a list of all the item's values that are correlating to the methods label (i.e. method labeled title returns 
+# a list of all the titles from the current page) by using the Pages class to parse the page for all the matching HTML elements.
 class Item:               
 
     def title(self): 
@@ -38,7 +45,11 @@ class Item:
                 price_list.append(x)
         return price_list
 
-
+    # Method date has to find the date on each item's main product page because it isn't listed on the search result page. 
+    # So there is a little more code than the other two methods. The program first builds a list of all the items on the 
+    # current result page. Once that's done it iterates through that list and builds an URL based on each products HREF. 
+    # Then the program goes to that page and parses it for the items date. It throws those dates into a list and uses that 
+    # list as the return value. 
     def date(self):                
         dates = Pages.date_parse(self)
         grid = []       
@@ -64,15 +75,18 @@ class Item:
         return date_tag
             
 
+# Class Pages holds all the methods pertaining to URL's and for parsing the web page for HTML elements.
 class Pages:  
 
     lego_search_url = "https://www.lego.com/en-us/search?q="   
 
+    # Builds and returns current page's URL.
     def current_page(self):
         current_url = self.replace(' ','%20')
         url_full = Pages.lego_search_url + current_url
         return url_full
 
+    # Builds and returns next page's URL. If next page doesn't exist, returns None.
     def find_next_page(self):        
         link_href_a = ''        
         page = requests.get(self)
@@ -90,7 +104,9 @@ class Pages:
         else:
             x = 'none'
             return x            
-        
+
+    # Parses the page by calling all the methods in the class Item using the current page's URL as the argument. Either returns True or None.
+    # Returns True if values exist or None if no values exist. 
     def parse_page(self):
         if (Item.title(self)) != None:
             title_tag.append(Item.title(self))
@@ -99,9 +115,10 @@ class Pages:
             return True
               
         else:
-            print('buttsholes')
+            #print('***')
             return None
 
+    # Parses current web page and returns all the item's titles or None if there aren't any found titles. 
     def title_parse(self):
         page = requests.get(self)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -112,38 +129,46 @@ class Pages:
         else:
             return None
 
+    # Parses current web page and returns all the item's prices or None if there aren't any found prices. 
     def price_parse(self):
         page = requests.get(self)
         soup = BeautifulSoup(page.content, 'html.parser')    
         prices = soup.find_all("div", class_='ProductLeafSharedstyles__PriceRow-sc-1epu2xb-10 fEzYBd')  
         return prices 
     
+    # Parses current web page and returns all the item's dates or None if there aren't any found dates. 
     def date_parse(self):
         page = requests.get(self)
         soup = BeautifulSoup(page.content, "html.parser")        
         dates = soup.find("ul", class_="ProductGridstyles__Grid-lc2zkx-0 gxucff") 
         return dates
 
-
-def intro():
-    print('What LEGO set/theme would you like to search?')
-    user_input = input()
+# Intro function to prompt user what set/theme they would like to use to search. Uses user input to create a URL and returns the URL. 
+def intro():    
+    user_input = input('What LEGO set/theme would you like to search?\n')
     url_full = Pages.current_page(user_input)
     print(url_full)
     return url_full
-    
+
+# This function is to prompt an error message if the user's input didn't return any results then calls the intro function to keep program looping. 
 def intro_loop():
-    print("No results found. Let's try another search")
+    print("No results found. Let's try another search")    
     url_full = intro()
     return url_full
 
 
+
+################################
+### Main program starts here ###
+################################
+
+
+
+# All the different lists being used for the programs output.
 product_grid = []
 title_tag = []
 price_tag = []
 date_tag = []
-
-
 
 url_full = intro()
 while Pages.parse_page(url_full) is None:
@@ -182,13 +207,13 @@ print('Done searching!')
 print('Now Creating XLSX results file...')
 
 
-### today's date
+### Today's date
 today = date.today()
 today_date_title = today.strftime("%B_%d_%Y")
 #print(today_date_title)
 
 
-### creation of xlsx file
+### Creation of xlsx file
 workbook = xlsxwriter.Workbook('LEGO.com_search_results_for_' + user_input.upper() + '_on_' + today_date_title + '.xlsx')
 worksheet = workbook.add_worksheet(today_date_title)
 
