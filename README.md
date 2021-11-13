@@ -8,7 +8,7 @@
 [What does this program do?](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#whatdoesthisprogramdo)<br />
 -- [Visual walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#visualwalkthrough)<br />
 -- [Text walkthrough](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#textwalkthrough)<br />
-[Steps to run program](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#stepstorunprgram)<br />
+[Steps to run program](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#stepstorunprogram)<br />
 [Important note](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#importantnote)<br />
 [Tested versions](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#testedversions)<br />
 [Project Requirements](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#projectrequirements)<br />
@@ -48,7 +48,7 @@ Third line is the URL that was created using the user input and the starting poi
 ### Text walkthrough ![image](https://user-images.githubusercontent.com/84582506/140657171-07376016-a0e7-45cf-b9c6-3de48d14d215.png)<br />
 This program takes a user input to scrape the LEGO website for sets, price, and availability using the user input. So lets say you want to see what LEGO Harry Potter sets  exist, if they're available (buy now, comming soon, retired, or back ordered), and how much they cost, well just type Harry Potter as your search input when asked. Once the program is done, the results are exported into an `.xlsx` (Excel) document and labeled with today's date and what search input was used. The functionality of the program is based on if you actually were searching the LEGO website. The program scrapes the search function as if you went directly to the Lego website and used the search function. Also the program relies on the Excel file for results and not the terminal (beyond the initial user input). <br /><br /><br />
 
-
+         
 <a name="stepstorunprogram"></a>
 ## Steps to run program ![image](https://user-images.githubusercontent.com/84582506/140657161-95a95744-6ddd-474b-aa60-243208f8cea4.png)
 1) You will first need to install 3 packages-
