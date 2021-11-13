@@ -1,3 +1,7 @@
+# Lego.com Item Search Scraper
+<br /><br /><br />
+
+
 # Table of Contents ![image](https://user-images.githubusercontent.com/84582506/140656970-7cee8afc-a9c3-4d76-a09f-29e2388a9f6f.png) 
 
 [About](https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper#about)<br />
@@ -24,19 +28,19 @@ This program was originally meant to find what sets came out October 1st because
 <a name="visualwalkthrough"></a>
 ### Visual walkthrough ![image](https://user-images.githubusercontent.com/84582506/140657181-3320da35-8716-4757-84a2-f4d2af777480.png)<br />
 1) Close-up of my terminal in Visual Studio. <br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_User_Input.jpg" alt="User Input"
+<img src="jpegs_for_readme/Results_Preview_User_Input.jpg" alt="User Input"
      	title="User Input" /><br />
 First line is the programs initial prompt. <br />
 Second line is the user input. <br />
 Third line is the URL that was created using the user input and the starting point for the scraper.<br />
 2) Close-up of the terminal showing the terminal output. This isn't the final format. But it's something to watch to make sure it's working.<br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Terminal.jpg" alt="Terminal Output"
+<img src="jpegs_for_readme/Results_Preview_Terminal.jpg" alt="Terminal Output"
      	title="Terminal Output" /><br />
 4) Full screen screenshot of Visual Studio with `.xlsx` file being previewed. <br />
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview.jpg" alt="Results"
+<img src="jpegs_for_readme/Results_Preview.jpg" alt="Results"
 	title="Results"  /><br /><br />
 3) Zoomed in results. This is what to rely on instead of terminal output. 
-<img src="https://github.com/avast-ye-matey/LEGO_Website_Search_Scraper/blob/main/Results_Preview_Closer.jpg" alt="Results Zoomed"
+<img src="jpegs_for_readme/Results_Preview_Closer.jpg" alt="Results Zoomed"
 	title="Results Zoomed"  /><br /><br />
 	
 	
@@ -74,7 +78,7 @@ This program takes a user input to scrape the LEGO website for sets, price, and 
 <a name="importantnote"></a>
 ## Important note ![image](https://user-images.githubusercontent.com/84582506/140657251-f1f32be7-ed50-4d91-808e-6ed5d2ffba74.png)
 <blockquote>
-This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal. I have cleaned up a lot of random terminal output I use for testing so the user can watch the results live but some random print functions may show.<br />
+This program relies on the Excel file that is created after the program runs and not on the terminal output. The terminal is only currently used for the user to input the search term they wish to use to search the Lego website. I'm in-between functionalities with the program as I'm switching it to be user facing (web app) and NOT to be used in the terminal. I have cleaned up a lot of random terminal output I use for testing so the user can watch the results live but some random print functions may show.<br /><br />
 
 I leave myself a lot of notes and use the print function after almost every line to help me debug. I deleted most comments but some may still be in the code. Also most of the testing print functions are commented out, but still some testing output may find its way on the terminal. 
 </blockquote><br /><br /><br />
